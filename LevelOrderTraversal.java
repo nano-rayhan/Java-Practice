@@ -79,12 +79,34 @@ public class LevelOrderTraversal {
 
         return leftsum + rightsum + root.data;
     }
+
+    public static int height(Node root){
+        if(root == null){
+            return 0;
+        }
+        int leftHeight = height(root.left);
+        int rightHeight = height(root.right);
+
+        int myHeight = Math.max(leftHeight, rightHeight) +1;
+        return myHeight;
+    }
+
+    public static int diameter(Node root){
+        if(root == null){
+            return 0;
+        }
+        int dia1 = diameter(root.left);
+        int dia2 = diameter(root.right);
+        int dia3 = height(root.left) + height(root.right)  + 1;
+
+        return Math.max(dia3, Math.max(dia1, dia2));
+    }
     
     public static void main(String[] args) {
         int nodes[] = {1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1};
         Binarytree tree = new Binarytree();
         Node root = tree.buildTree(nodes);
-        System.out.println(sumOfNode(root));
+        System.out.println(diameter(root));
         
     }
 }
